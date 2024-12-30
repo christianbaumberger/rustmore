@@ -3,32 +3,37 @@ use std::collections::HashMap;
 
 fn main() {
     let names = read_lines("./makemore/names.txt");
-    let names_part = names[0..10].to_vec();
 
-    // step-by-step example
+    // // step-by-step example
     // println!("First few names:");
-    // println!("{:?}", names_part);
+    // println!("{:?}", names[0..10].to_vec());
     // println!("Length: {}", names.len());
     
-    // let first_name = &names_part[1];
-    // println!("name {:?}", first_name);
-    // let name_chars: Vec<_> = first_name.chars().collect();
+    // let first_name = &names[1];
+    // let first_name_extended = format!("<{}>", first_name);
+    // println!("name {:?}", first_name_extended);
+    // let name_chars: Vec<_> = first_name_extended.chars().collect();
+    // println!("name chars: {:?}", name_chars);
 
     // let char_pairs = name_chars.iter()
     //     .zip(name_chars.iter().skip(1))
     //     .collect::<Vec<_>>();
-    // println!("{:?}", char_pairs);
+    // println!("char pairs: {:?}", char_pairs);
 
     // let mut bigrams = HashMap::new();
     // for key in char_pairs.iter() {
     //     *bigrams.entry(key).or_insert(0) += 1
     // }
-    // println!("{:?}", bigrams);
+    // println!("bigrams: {:?}", bigrams);
 
+
+    // complete example
     let mut bigram_map = HashMap::new();
-    for name in names_part.iter() {
-    // for name in names.iter() {
-        let name_chars: Vec<_> = name.chars().collect();
+    // let names_part = names[0..10].to_vec();
+    // for name in names_part.iter() {
+    for name in names.iter() {
+        let name_extended = format!("<{}>", name);
+        let name_chars: Vec<_> = name_extended.chars().collect();
         let char_pairs = name_chars.iter().zip(name_chars.iter().skip(1)).collect::<Vec<_>>();
         for &(&char_a, &char_b) in char_pairs.iter() {
             *bigram_map.entry((char_a, char_b)).or_insert(0) += 1;
